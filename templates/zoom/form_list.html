@@ -1,0 +1,29 @@
+{% extends 'gradesApp/base.html' %}
+{% block body_block %}
+<div style="color:white;margin-top:50px">
+<h2>Zooms</h2>
+
+<table class="table" style="color:white">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for zoom in zooms %}
+
+    <tr>
+      <td>{{ zoom.title }}</td>
+      <td>{{ zoom.dates }}</td>
+      <td>{{ zoom.times }}</td>
+      <td><a href="{{zoom.infos}}">{{ zoom.infos }}</a></td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

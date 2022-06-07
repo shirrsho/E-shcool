@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% comment %} <link rel="stylesheet" href="{% static "CSS/mystyle.css" %}"> {% endcomment %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-shcool</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <style>
+    .main{
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.8) 100%), url("/media/design/background2.jpg") no-repeat fixed;
+      padding: 0 0 0 0;
+      }
+      
+    .float{
+      position:fixed;
+      width:80px;
+      height:60px;
+      top:80px;
+      right:80px;
+      background-color:#f5c71a;
+      color:#000;
+      border-radius:50px;
+      vertical-align:center;
+      box-shadow: 2px 2px 3px yellow;
+      padding:9px 14px;
+      animation: float 1s;
+      animation-iteration-count: infinite;
+    }
+    .float:hover{
+      background-color:#ffb000;
+    }
+    
+    @keyframes float {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-1deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg); }
+      30% { transform: translate(3px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg); }
+      50% { transform: translate(-1px, 2px) rotate(-1deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(3px, 1px) rotate(-1deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg); }
+      90% { transform: translate(1px, 2px) rotate(0deg); }
+      100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+  </style>
+</head>
+<body class="main">
+  <div class="main">
+    <nav id = "navv" class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand" href="{% url "index" %}" style="padding-left:50px"><b class="lead">E-shcool</b></a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                {% if user.is_authenticated %}
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url "gradesApp:courseList" %}">Home</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url "admin:index" %}">Admin</a>
+                  </li>
+                {% else %}
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url "admin:index" %}">Admin</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url "gradesApp:register" %}">Register</a>
+                </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item active ml-auto">
+                        <a class="nav-link" href="{% url "logout" %}">Logout</a>
+                    </li>
+                    <div style="color:red; float:right">
+                    <li>
+                      <a class="nav-link" href="{% url "gradesApp:viewProfile" %}"><img src="/media/profile_pics/generalDP.jpg" width="30px" height="30px" class="rounded-circle" class="justify-content-end"/></a>
+                    </li>
+                    </div>
+                {% else %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url "gradesApp:userLogin" %}"
+                        >Login</a
+                        >
+                    </li>
+                {% endif %}
+
+            </ul>
+
+        </div>
+    </nav>
+    <a target="_blank" id="botlink" href="{% url "chatbot:chatbot" %}" class="float">
+      <img src="/media/design/bot.png" height="50px" width="50px"/>
+    </a>
+    <div class="container">
+        {% block body_block %}
+        {% endblock %}
+    </div>
+  </div>
+</body>
+</html>

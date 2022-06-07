@@ -1,0 +1,64 @@
+{% extends 'gradesApp/base.html' %} {% block body_block %}
+<style>
+  .form-control {
+    width: 500px;
+  }
+  .form-control:focus {
+    border-color: #f5c71a;
+  }
+  .form-g {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+  }
+  .btn btn-success:hover {
+    background-color: #f5c71a;
+  }
+  .jumbotron {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    position: absolute;
+    margin-top: 300px;
+    right: 20%;
+    left: 20%;
+    transform: translate(0, -40%);
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+  }
+</style>
+<div class="jumbotron">
+  {% if registered %}
+  <h1 class="lead" style="color: white">
+    Thanks for registering, Please Log in!
+  </h1>
+  {% else %}
+  <p
+    class="display-4"
+    style="color: #f5c71a; text-align: center; margin-top: 200px"
+  >
+    Sign Up for Students
+  </p>
+  <br />
+  <form action="" method="POST">
+    <div class="container lead" style="color: #f7f7f7; font-size: 15px">
+      {% csrf_token %} {{ var_studentForm.as_p }} {{ var_studentAddForm.as_p }}
+      <input
+        type="submit"
+        value="Register"
+        class="btn btn-success"
+        style="
+          background-color: transparent;
+          border: 1px solid white;
+          color: white;
+        "
+      />
+    </div>
+  </form>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'gradesApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+<h2 style="text-align:center">Face Recognition</h2><br><br>
+<h2 style="text-align:center">Profile Picture</h2><br><br>
+<div style="text-align:center"><img src="/media/{{ current_user.profile_pic }}" width="500px" height="360px" /></div>
+<br><br>
+<h2 style="text-align:center">Result</h2>
+<div class="container" style="text-align:center; font-size:25px">
+  <strong>Distance of Captured Image & Profile Picture: </strong>{{ result }}<br><br>
+  {% if verified %}
+    <p style="color:green"><strong>Face Matched!!!</strong></p>
+    <a href="{% url 'zoom:form_list' %}" class="btn btn-success">Proceed to Exam Link</a>
+  {% else %}
+    <p style="coloer:red"><strong>Face Recognition Failed!!</strong></p>
+  {% endif %}
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'gradesApp/base.html' %} {% block body_block %}
+<style>
+
+  #cform {
+    position: fixed;
+    bottom: 100px;
+    right: auto;
+  }
+  #boxx{
+    width:500px;
+    height:35px;
+  }
+  {% comment %} .container {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+  } {% endcomment %}
+  #messages {
+    height: 450px;
+    width: 600px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 20px 20px;
+    top:15%;
+  }
+  .jumbotron {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+  }
+</style>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="jumbotron" id="messages" style="position: fixed; bottom: 100px; right: auto">
+      <div class="card bg-light text-dark" width="500px" height="10px">
+        <p><b>Bot:</b> How can I help you?</p>
+      </div>
+    </div>
+    <form id="cform" method="post">
+      <input id="boxx" type="text" name="message" />
+      <button type="submit" class="btn btn-transparent" style="color:white;border:1px solid white">Send</button>
+    </form>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var botlink = document.getElementById("botlink");
+      botlink.style.display = "none";
+      let url = `ws://${window.location.host}/ws/socket-server/`;
+      const chatSocket = new WebSocket(url);
+      chatSocket.onmessage = function (e) {
+        let data = JSON.parse(e.data);
+        console.log("Data:", data);
+
+        if (data.type === "chat") {
+          let messages = document.getElementById("messages");
+          messages.insertAdjacentHTML(
+            "beforeend",
+            `<div class="card bg-light text-dark" width="500px" height="10px" style="margin-top:20px">
+              <p><b>You:</b> ${data.message}</p>
+            </div>`
+          );
+
+          $.ajax({
+            url: "",
+            type: "get",
+            data: {
+              input: data.message,
+            },
+            success: function (response) {
+              messages.insertAdjacentHTML(
+                "beforeend",
+                `<div class="card bg-light text-dark" width="500px" height="10px" style="margin-top:20px">
+                    <p><b>Bot:</b> ${response.paragraph}</p>
+                    <p>Most probable src: <a target="_blank" href="${response.link}">${response.link}</a></p>
+                    <p>For more info: <a target="_blank" href="${response.url}">${response.url}</p>
+                  </div>`
+              );
+            },
+          });
+        }
+      };
+
+      let form = document.getElementById("cform");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let message = e.target.message.value;
+        chatSocket.send(
+          JSON.stringify({
+            message: message,
+          })
+        );
+        form.reset();
+        var scrolled = false;
+        function updateScroll() {
+          //if (!scrolled) {
+          var element = document.getElementById("messages");
+          element.scrollTop = element.scrollHeight;
+          //}
+        }
+
+        $("#messages").on("scroll", function () {
+          scrolled = true;
+        });
+
+        setInterval(updateScroll, 1000);
+      });
+    </script>
+  </div>
+</div>
+
+{% endblock %}

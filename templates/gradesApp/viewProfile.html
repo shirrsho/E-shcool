@@ -1,0 +1,26 @@
+{% extends 'gradesApp/base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+
+<div class="container" style="text-align: center; color: white">
+  
+  <br />
+  <img style="margin-top:50px" height="300px" width="300px" src="/media/{{ profile.profile_pic }}" />
+  <br /><br /><br />
+
+  <h3 class="display-3" style="margin-top:30px;font-weight:bold; font-size:30px;color:white ;text-align: center">Attendance List</h3>
+  <br />
+
+  <table class="table" style="color:white;" border="1" align="center">
+    <tr>
+      <th>Course</th>
+      <th>Attendance</th>
+    </tr>
+    <tr>
+      <td>x</td>
+      <td>{{ profile.attendance }}</td>
+    </tr>
+  </table>
+</div>
+
+{% endblock %}

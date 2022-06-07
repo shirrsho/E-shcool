@@ -1,0 +1,35 @@
+{% extends 'gradesApp/base.html' %}
+
+{% block body_block %}
+
+<div style="color:white;margin-top:50px">
+<h2 style="text-align:center; padding:25px">Assignment List</h2>
+
+
+<table class="table" style="color:white">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Message</th>
+      <th>Due</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for material in assignments %}
+
+      <tr>
+        <td><a href="{% url 'assignment:a_solution_list' material.pk %}">{{ material.title }}</a></td>
+        <td>{{ material.author }}</td>
+        <td>{{ material.body }}</td>
+        <td>{{ material.due }}</td>
+        <td><a href="{{ material.question.url }}" class="btn btn-primary btn-sm" target="_blank">Question</a></td>
+      </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

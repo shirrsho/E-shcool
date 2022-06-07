@@ -1,0 +1,26 @@
+{% extends 'gradesApp/base.html' %}
+
+{% block body_block %}
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-5 col-sm-6">
+      <a href="{% url 'Notice:notice_list' %}" class="btn btn-primary">Back to Notice Board</a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-mid-5 col-sm-12">
+      <div class="jumbotron">
+        <div style="text-align:center; color:blue; font-size:28px"><strong>{{ notice.title }}</strong></div>
+        <div style="text-align:center; color: #6495ED; font-size:25px">{{ notice.noticeDate }}</div><br>
+        <div style="font-size:20px">{{ notice.body }}</div><br>
+        <hr>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

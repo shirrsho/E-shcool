@@ -1,0 +1,12 @@
+{% extends 'gradesApp/base.html' %}
+{% block body_block %}
+<div style="color:white;margin-top:50px">
+  <h2>Create Meeting</h2>
+<div class="container">
+    <form method="POST" style="color:white;margin-top:50px">
+      {% csrf_token %} {{form.as_p}}
+      <button type="submit" , name="save" class="btn btn-primary">Create</button>
+    </form>
+</div>
+<div>
+{% endblock %}

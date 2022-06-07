@@ -1,0 +1,32 @@
+{% extends 'gradesApp/base.html' %}
+{% block body_block %}
+<style>
+  .card {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    transform: translate(0, -40%);
+    padding: 25px;
+  }
+  .card:hover{
+    z-index:10;
+  }
+</style>
+
+{% for course in courseList %}
+<div style="padding-right:20px; margin-top:150px">
+<div class="card" style="width: 13rem; height: 18rem; float:left; margin:15px">
+  <img class="card-img-top" src="/media/design/course.png" alt="Card image cap">
+  <div class="card-body">
+    <a style="color:white" href="{% url 'Post:post-list' %}">{{ course }}</a>
+  </div>
+</div>
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}

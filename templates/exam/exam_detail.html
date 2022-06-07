@@ -1,0 +1,30 @@
+{% extends 'gradesApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+<div style="color:white;margin-top:50px">
+<h2 style="text-align: center; padding:25px">Exam Solution Submission</h2><br>
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-mid-5 col-sm-12">
+      <p><strong>{{ problem.author }}</strong> {{ problem.created_on }}</p>
+      <h4>{{ problem.body }}</h4><hr><br>
+    </div>
+  </div>
+
+
+  <div class="row justify-content mt-3 mb-5">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      <form class="" method="POST" style="color:white">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="d-grid gap-2">
+          <button type="submit" id="submit" class="btn btn-primary mt-3" onclick="myFunction()">Submit Solution</button>
+        </div>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

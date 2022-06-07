@@ -1,0 +1,116 @@
+{% extends 'gradesApp/base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+
+<script>
+  function clicked(){
+    forr = document.getElementById('ttt');
+    form.reset();
+  }
+</script>
+<style>
+  .main{
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.9) 100%), url("/media/design/background2.jpg") no-repeat fixed;
+    padding: 0 0 0 0;
+    }
+  #ppp{
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    transform: translate(0, -40%);
+    padding: 25px;
+  }
+  #post:hover{
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+</style>
+<div style="display:flex;">
+<div id="ppp" class="nav flex-column" style="position:fixed; margin-top:300px;">
+  {% if is_student %}
+  <a href="{% url 'upload:material_list' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Course Materials</a
+  >
+  <a href="{% url 'Notice:notice_list' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a">Notice Board</a>
+  <a href="{% url 'zoom:form_list' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Online Meetings</a
+  >
+  <a href="{% url 'assignment:assignment_list' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Assignments</a
+  >
+  <a href="{% url 'exam:exam_list' %}"  class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a">Exams</a>
+  <a href="{% url 'gradesApp:viewProfile' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Profile</a
+  >
+  <a href="{% url 'onlineExam:firstPage' %}"  class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Join Online Exam</a
+  >
+  {% else %}
+  <a href="{% url 'upload:material_list' %}"  class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Course Materials</a
+  >
+  <a href="{% url 'upload:upload_material' %}"  class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Upload Course Materials</a
+  >
+  <a href="{% url 'Notice:notice_list' %}"  class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a">Notice Board</a>
+  <a href=""  class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a">Online Meetings</a>
+  <a href="{% url 'assignment:upload_assignment' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+    >Create Assignment</a
+  >
+  <a href="{% url 'exam:upload_exam' %}"  class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a">Create Exam</a>
+  
+  <div style="padding-top: 0px">
+    <a href="{% url 'exam:evaluation_list' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+      >Exam Evaluation</a
+    >
+    <a href="{% url 'assignment:a_evaluation_list' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+      >Assignment Evaluation</a
+    >
+    <a href="{% url 'zoom:form_list' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+      >Online Meetings</a
+    >
+    <a href="{% url 'zoom:create_meeting' %}" class="nav-link" style="margin-bottom:10px;width:200px;color:#f5c71a"
+      >Create Online Meeting</a
+    >
+  </div>
+  {% endif %}
+</div>
+
+<div class="container" style="margin-top:50px;color:white">
+  <div class="row justify-content-center mt-3">
+    <div style="margin-bottom:50px;">
+      <h5 class="display-3 lead">Course Stream</h5>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3 mb-5" style="">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      <form id="ttt" class="" method="POST">
+        {% csrf_token %} {{ form | crispy }}
+        <div class="d-grid gap-2">
+          <button style="background-color:transparent;border:1px solid #f5c71a;margin-left:370px;margin-bottom:100px" class="btn btn-success mt-3" onclick="clicked()">Post!</button>
+        </div>
+        <br />
+      </form>
+    </div>
+  </div>
+
+  {% for post in post_list %}
+  <div id="post" class="row justify-content-center mt-3" style="margin-bottom:100px;width:wrap-content;">
+    <div class="col-md-5 col-sm-12 border-bottom position-relative">
+      <h6 class="lead"><b>{{ post.author }}</b></h6> <p style="font-size:10px">{{ post.created_on }}</p>
+      <p class="lead">{{ post.body }}</p>
+      <br />
+      <a href="{% url 'Post:post-detail' post.pk %}" class="stretched-link"></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{%endblock%}

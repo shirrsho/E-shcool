@@ -1,0 +1,34 @@
+{% extends 'gradesApp/base.html' %}
+{% block body_block %}
+
+<style>
+  .jumbotron{
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%);
+    position: absolute;
+    top: 40%;
+    right: 30%;
+    left: 30%;
+    transform:
+    translate(0, -40%);
+    padding: 25px;
+  }
+</style>
+
+<div class="jumbotron" style="">
+    <h1 class="display-3" style="font-size:25px;color:#f5c71a ;text-align: center"><b>E-shcool</b></h1>
+    <h1 class="display-6 text-secondary" style="text-align: center">Registration</h1>
+
+    <hr class="my-2">
+    <div class="lead" style="text-align: center; padding-bottom: 50px; padding-top: 40px; display: flex;justify-content: center;">
+        <div class="" style="padding:10px">
+          <a class="btn btn-lg" style="background-color:transparent;border:1px solid white; color:white" href="{% url "gradesApp:registerStudent" %}" role="button">I'm a Student</a>
+        </div>
+        <div class="" style="padding:10px">
+          <a class="btn btn-lg" style="background-color:transparent;border:1px solid white; color:white" href="{% url "gradesApp:registerTeacher" %}" role="button">I'm a Teacher</a>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}

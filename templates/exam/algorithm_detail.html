@@ -1,0 +1,57 @@
+{% extends 'gradesApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+
+<style media="screen">
+  .jumbotron{
+    text-align: center;
+    padding-top: 10px;
+  }
+</style>
+
+<div style="padding:15px">
+  <div class="jumbotron">
+    <strong style="font-size:32px">Cosine Similarity</strong><hr>
+    <div style="font-size:20px; font-family: open sans regular">Cosine similarity measures the similarity between two vectors of an inner product space. It is measured by the cosine of the angle between two vectors and determines whether two vectors are pointing in roughly the same direction. It is often used to measure document similarity in text analysis. The cosine similarity is the cosine of the angle between vectors. The vectors are typically non-zero and are within an inner product space. The cosine similarity is described mathematically as the division between the dot product of vectors and the product of the euclidean norms or magnitude of each vector.
+    </div><br><br>
+    <img src="/media/design/cosine.png" alt="" width="500px" height="250px">
+    <br><br><br>
+    <strong style="font-size:28px">Formulas</strong><hr>
+    <img src="/media/design/cosine_formula.png" alt="">
+    <br><br><br>
+    <strong style="font-size:28px">Algorithm</strong><hr>
+    <div style="text-align:left">
+      <ul class="list-group" style="font-family:open sans regular; font-size:20px">
+      <li class="list-group-item">1. Fetch the Answer and the Sample Solution</li>
+      <li class="list-group-item">2. Tokenize each word and then remove the Stopwords</li>
+      <li class="list-group-item">3. Prepare a word collection list 'Rvector' from the Answer and the Sample Solution</li>
+      <li class="list-group-item">4. Vectorize the Answer and the Sample Solution using the Rvector</li>
+      <li class="list-group-item">5. While vectorization check for the synonyms as well. If a synonym is present then vectorize it as True</li>
+      <li class="list-group-item">6. Put the counted 2 vectors(Answer & Sample Solution) into the Cosine Similarity formula</li>
+      </ul>
+    </div>
+  </div>
+  <br><br><br>
+  <div style="padding:15px">
+    <div class="jumbotron" style="padding-top:20px">
+      <strong style="font-size:32px">Fuzzy String Matching</strong><hr>
+      <div style="font-size:20px; font-family: open sans regular">Fuzzy string matching is the technique of finding strings that match with a given string partially and not exactly. When a user misspells a word or enters a word partially, fuzzy string matching helps in finding the right word – as we see in search engines. The algorithm behind fuzzy string matching does not simply look at the equivalency of two strings but rather quantifies how close two strings are to one another.
+      </div><br><br>
+      <img src="/media/design/fuzzy1.png" alt="" width="500px" height="250px"><br><br>
+      <img src="/media/design/fuzzy2.png" alt="" width="420px" height="200px">
+      <br><br><br>
+      <strong style="font-size:28px">Levenshtein Distance</strong><hr>
+      <img src="/media/design/fuzzy_formula.png" alt="" width="800px" height="240px">
+      <br><br><br>
+      <strong style="font-size:28px">Algorithm Details</strong><hr>
+      <div style="text-align:justified; font-family:open sans regular; font-size:18px; margin:50px">
+        <p>One possible definition of the approximate string matching problem is the following: Given a pattern string {\displaystyle P=p_{1}p_{2}...p_{m}}P = p_1p_2...p_m and a text string {\displaystyle T=t_{1}t_{2}\dots t_{n}}T = t_1t_2\dots t_n, find a substring {\displaystyle T_{j',j}=t_{j'}\dots t_{j}}T_{j',j} = t_{j'}\dots t_j in T, which, of all substrings of T, has the smallest edit distance to the pattern P. A brute-force approach would be to compute the edit distance to P for all substrings of T, and then choose the substring with the minimum distance. However, this algorithm would have the running time O(n3 m).</p><br>
+        <p>A better solution, which was proposed by Sellers[3], relies on dynamic programming. It uses an alternative formulation of the problem: for each position j in the text T and each position i in the pattern P, compute the minimum edit distance between the i first characters of the pattern, {\displaystyle P_{i}}P_{i}, and any substring {\displaystyle T_{j',j}}T_{j',j} of T that ends at position j. For each position j in the text T, and each position i in the pattern P, go through all substrings of T ending at position j, and determine which one of them has the minimal edit distance to the i first characters of the pattern P. Write this minimal distance as E(i, j). After computing E(i, j) for all i and j, we can easily find a solution to the original problem: it is the substring for which E(m, j) is minimal (m being the length of the pattern P). Computing E(m, j) is very similar to computing the edit distance between two strings.</p><br>
+        <p>In fact, we can use the Levenshtein distance computing algorithm for E(m, j), the only difference being that we must initialize the first row with zeros, and save the path of computation, that is, whether we used E(i − 1,j), E(i,j − 1) or E(i − 1,j − 1) in computing E(i, j). In the array containing the E(x, y) values, we then choose the minimal value in the last row, let it be E(x2, y2), and follow the path of computation backwards, back to the row number 0. If the field we arrived at was E(0, y1), then T[y1 + 1] ... T[y2] is a substring of T with the minimal edit distance to the pattern P. Computing the E(x, y) array takes O(mn) time with the dynamic programming algorithm, while the backwards-working phase takes O(n + m) time. Another recent idea is the similarity join. When matching database relates to a large scale of data, the O(mn) time with the dynamic programming algorithm cannot work within a limited time. So, the idea is to reduce the number of candidate pairs, instead of computing the similarity of all pairs of strings. Widely used algorithms are based on filter-verification, hashing, Locality-sensitive hashing (LSH), Tries and other greedy and approximation algorithms. Most of them are designed to fit some framework (such as Map-Reduce) to compute concurrently.</p>
+      </div>
+      <hr>
+    </div>
+</div>
+
+{% endblock %}

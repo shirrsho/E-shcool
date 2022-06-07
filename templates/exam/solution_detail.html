@@ -1,0 +1,25 @@
+{% extends 'gradesApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+<div style="color:white;margin-top:50px">
+<h2 style="text-align:center; padding:25px">Evaluation</h2>
+
+<div class="row justify-content-center mt-3">
+  <div class="col-mid-5 col-sm-12">
+    <div style="text-align:center">{{ solution.author }}<br> {{ solution.submission_time }}</div>
+    <h2 style="text-align:center; padding:25px">Student's Answer</h2>
+    <div class="jumbotron" style="color:black">{{ solution.answer }}<hr></div><br>
+    <h2 style="text-align:center; padding:25px">Sample Answer</h2>
+    <div class="jumbotron" style="color:black">{{ sampleSol }}<hr></div><br>
+    <h2 style="text-align:center; padding:25px">Machine Evaluation Result</h2>
+    <div class="jumbotron" style="color:black"><div style="text-align:center; font-size:20px">
+      <strong>Similarity: </strong><strong style="color:blue">{{ result }}</strong>
+      <b style="color:blue"> %</b><br><br>
+      <a href="{% url 'exam:algorithm_detail' %}" class="btn btn-info">See Algorithm Details</a></div><hr>
+    </div><br>
+
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'gradesApp/base.html' %}
+
+{% block body_block %}
+<div style="color:white;margin-top:50px">
+  <h2>Materials</h2>
+  
+  
+  <table class="table" style="color:white">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Uploaded By</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+  <tbody>
+    {% for material in materials %}
+    
+    <tr>
+      <td>{{ material.title }}</td>
+      <td>{{ material.author }}</td>
+        <td><a href="{{ material.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">Download</a></td>
+      </tr>
+      
+      {% endfor %}
+    </tbody>
+  </table>
+  
+</div>
+  
+{% endblock %}

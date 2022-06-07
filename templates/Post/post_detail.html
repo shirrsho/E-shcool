@@ -1,0 +1,59 @@
+{% extends 'gradesApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body_block %}
+
+<style>
+  #navv{
+    display:none;
+  }
+  .main{
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.9) 100%), url("/media/design/background2.jpg") no-repeat fixed;
+    padding: 0 0 0 0;
+    }
+</style>
+
+<div class="container" style="color:white">
+  <div class="row mt-5" >
+    <div class="col-md-5 col-sm-6" style="margin-top:50px;margin-bottom:100px;">
+      <a style="color:white"class="nav-link" href="{% url 'Post:post-list' %}"><--Back</a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-mid-5 col-sm-12">
+      <h6 class="lead"><b>{{ post.author }}</b></h6> <p style="font-size:10px">{{ post.created_on }}</p>
+      <p class="lead" style="margin-bottom:100px">{{ post.body }}</p>
+      <h5>Comments</h5>
+    </div>
+  </div>
+
+  {% for comment in comments %}
+
+    <div class="row justify-content mt-3 mb-5 border-bottom">
+      <div class="col-md-5 col-sm-12">
+        <p><strong>{{ comment.author }} </strong>&emsp;{{ comment.created_on }}</p>
+        <p>{{ comment.comment }}</p>
+      </div>
+    </div>
+
+  {% endfor %}
+
+  <div class="row justify-content mt-3 mb-5">
+    <div class="col-md-5 col-sm-12 border-bottom">
+      <form class="" method="POST" style="display:flex;flex-direction:column">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div>
+          <button class="btn btn-dark mt-3">Add Comment</button>
+        </div>
+        <br>
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "gradesApp/base.html" %} {% block body_block %}
+
+<style>
+  .jumbotron {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    position: absolute;
+    top: 45%;
+    right: 35%;
+    left: 35%;
+    transform: translate(0, -40%);
+    padding: 25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    color:#f7f7f7;
+  }
+</style>
+
+<div class="jumbotron">
+  <h1
+    class="display-3"
+    style="font-size: 25px; color: #f5c71a; text-align: center"
+  >
+    <b>E-shcool</b>
+  </h1>
+  <h1 class="display-6 text-secondary" style="text-align: center">Login</h1>
+  <hr />
+  <br />
+
+  {% if invalidlogin %}
+  <h3>Please enter correct login details!</h3>
+  {% endif %}
+  <div>
+  <form action="{% url 'gradesApp:userLogin' %}" method="POST">
+    {% csrf_token %}
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+    
+    <div>
+      <div style="margin-left:50px">
+        <label for="username">Username: </label>
+        <input class="form-control" style="width:300px" type="text" name="username" placeholder="Enter Username" />
+      </div>
+    </div>
+
+    <div>
+    <div style="margin-left:50px;margin-top:10px">
+      <label for="password">Password: </label>
+      <input
+        class="form-control"
+        type="password"
+        name="password"
+        placeholder="Enter Password"
+        style="width:300px;"
+      />
+    </div>
+    </div>
+
+    <div>
+    <div class="" style="text-align: center; padding-bottom: 20px">
+      <input
+        type="Submit"
+        value="Login"
+        class="btn btn-lg"
+        style="
+          background-color: transparent;
+          border: 1px solid white;
+          color: white;
+          margin-top:50px
+        "
+      />
+    </div>
+  </form>
+</div>
+</div>
+
+{% endblock %}
